@@ -1,0 +1,255 @@
+
+
+
+
+
+
+
+void asama10(){
+    printf("\nşimdik sana bi fıkra daha:\n");
+    fikra();
+    printf("Çıkmak için bir tuşa basın.");
+    getch();
+    exit(0);
+}
+
+void asama9(){
+    char ch;
+    int tahmin = random(100)+1;
+    int ustlimit = 100;
+    int altlimit = 1;
+    hata = 0;
+    int kacinci = 0;
+    char inp;
+    printf("şimdik sen bi sayı tut, ben bulmaya çalışiim. Ama dürüst ol.\ntahminimde yükselmen gerekirse 'y', düşmem gerekirse 'd' ile yanıt ver.\nsayıyı bulursam 'b' ile yanıt vermen yeterli.\n");
+    asama9gg:
+    kacinci++;
+    printf(" %d  ??\n? ", tahmin);
+
+    scanf(" %c", &inp);
+
+
+
+
+
+    if(inp=='y'){
+        if(ustlimit-1==tahmin && altlimit+1==tahmin){
+            sov();
+            if(hata>5){
+                goto bitis;
+            }else{
+                hata++;
+                goto asama9gg;
+            }
+        }
+        if(ustlimit-1==tahmin){
+            tahmin--;
+            sov();
+            if(hata>5){
+                goto bitis;
+            }else{
+                hata++;
+                goto asama9gg;
+            }
+        }else{
+            altlimit = tahmin;
+            tahmin = random(ustlimit - altlimit -1)+altlimit+1;
+            goto asama9gg;
+        }
+
+    }else if(inp=='d'){
+        if(ustlimit-1==tahmin && altlimit+1==tahmin){
+            sov();
+            if(hata>5){
+                goto bitis;
+            }else{
+                hata++;
+                goto asama9gg;
+            }
+        }
+        if(altlimit+1==tahmin){
+            tahmin++;
+            sov();
+            if(hata>5){
+                goto bitis;
+            }else{
+                hata++;
+                goto asama9gg;
+            }
+        }else{
+            ustlimit = tahmin;
+            tahmin = random(ustlimit - altlimit -1)+altlimit+1;
+            goto asama9gg;
+        }
+    }else if(inp=='b'){
+    bitis:
+        printf(" %d  tahminde bildim...\n", kacinci);
+        if(kacinci<skor){
+            printf("kodum! kodum! kodum! hehehehe!");
+        }else if(kacinci>skor){
+            printf("lanet olsun! beni geçtin! %100 hile yapmışsındır!");
+        }else{
+            printf("hmm... eşitiz galiba...");
+        }
+        asama10();
+    }else{
+        goto asama9gg;
+    }
+}
+
+void asama8(){
+    int tuttum = random(100) + 1;
+    int cikimmi = 1;
+    int simdikitahmin;
+    int tahmin = 0;
+    int kackere = 0;
+    printf("%s,\n gel senlen oyun oynayak...\nben şimdik 1 ilen 100 arası bi sayı tutiim...\ntuttum.\n", isim);
+    asama8gg:
+    kackere++;
+    if(tuttum == simdikitahmin){
+        if(kackere <= 3){
+            printf(" %d  tahminde nası bildin lan? walla brawo!!", kackere);
+        }else if(kackere <= 5){
+            printf(" %d . denemede buldun!! tebrik etmek lazım şindi seni...", kackere);
+        }else if(kackere <= 10){
+            printf(" %d tahminde buldun.. eh..", kackere);
+        }else if(kackere <= 20){
+            printf("NİHAYET!!!  bişey  %d  kere sorulmaz ki ama, dimi?!", kackere);
+        }else if(kackere <= 30){
+            printf("bir an ümidimi kesmiştim! neytse ki  %d  kerede buldun! aferin!", kackere);
+        }else if(kackere>30){
+            printf(" %d \ntahminde bulundun...  sen,\n1- Türkçe bilmiyorsun...\n2- Klavye kullanmasını bilmiyorsun...\n3- ya da cinsel yönden bazısorunların var!!!\nE M B E S İ L !", kackere);
+        }
+        skor = kackere;
+        asama9();
+    }else{
+        printf("tahmin et bakalım..? ");
+        scanf("%d", &simdikitahmin);
+        if(simdikitahmin==tahmin){
+            printf("aynı sayıyı ne giriyon idiot!\n");
+            goto asama8gg;
+        }else if(simdikitahmin>100 || simdikitahmin < 1){
+            printf("Abartma! abartma!  1-100 arası dedik!\n");
+            goto asama8gg;
+        }else{
+            if(cikimmi == 1 && tahmin > simdikitahmin){
+                tahmin = simdikitahmin;
+                printf("kendine gel yavrucum!\n");
+                if(tahmin<tuttum){
+                    printf("yaklaştın, acık daa çık!\n");
+                    goto asama8gg;
+                }
+            }
+            if(cikimmi == 0 && tahmin < simdikitahmin){
+                tahmin = simdikitahmin;
+                printf("naaptın sen çuçuum!!\n");
+                if(tahmin<tuttum){
+                    printf("biraz daa düş!\n");
+                    goto asama8gg;
+                }
+            }
+            tahmin = simdikitahmin;
+            if(tahmin<tuttum){
+                cikimmi=1;
+                if(tahmin<=21){
+                    printf("yok pire! çık azcık yaw!..\n");
+                    goto asama8gg;
+                }else{
+                    if(tuttum-tahmin<20){
+                        printf("yaklaştın, acık daa çık!\n");
+                    }else{
+                        printf("çık çık\n");
+                    }
+                    goto asama8gg;
+                }
+
+                goto asama8gg;
+            }else if(tahmin>tuttum){
+                cikimmi=0;
+                if(tahmin>=80){
+                    printf("çüşş!!  düşş!\n");
+                    goto asama8gg;
+                }else{
+                    if(tahmin-tuttum<20){
+                        printf("biraz daa düş!\n");
+                    }else{
+                        printf("aşşalara gel aşşalara\n");
+                    }
+                }
+
+                goto asama8gg;
+            }else{
+                goto asama8gg;
+            }
+        }
+    }
+
+
+}
+
+void asama7(){
+    printf("memleket nere %s?\n? ", isim);
+    char memleket[256];
+    int memleketuzunluk;
+    scanf(" %255[0-9a-zA-Z ]", &memleket);
+    memleketuzunluk = strlen(memleket);
+    char son1karakter = memleket[memleketuzunluk-1];
+    char son2karakter = memleket[memleketuzunluk-2];
+    char son3karakter = memleket[memleketuzunluk-3];
+    char karakter;
+    int bulundu = 0;
+    if(sesliharf(son1karakter)==0){
+    //son karakter sessiz
+        if(sesliharf(son2karakter)==0){
+        //sondan 2. karakter sessiz
+            karakter = son3karakter;
+            bulundu = 3;
+        }else{
+        //sondan 2. karakter sesli
+            karakter = son2karakter;
+            bulundu = 2;
+        }
+    }else{
+    //son karakter sesli
+        karakter = son1karakter;
+        bulundu = 1;
+    }
+
+    if(karakter=='u' || karakter=='o'){
+        printf("madem %slusun,\n buralara ne b*k yemeye geldin?! Ayrıca\n%sdan\n   adam falan çıkmaz!", memleket, memleket);
+    }else if(karakter=='ü' || karakter=='ö'){
+        printf("heheheh!%sden\n top çıkarmış diyolar!?!", memleket);
+    }else if(karakter=='a' || karakter=='ı'){
+        printf("naaaber pis\n%slı!", memleket);
+    }else if(karakter=='e' || karakter=='i'){
+        printf("nea!? %sden\n      adam çıkmaz ki beah!!!  hihöhöhö!!", memleket);
+    }
+    printf("\n");
+    gul();
+    printf("\nneyse %s,\n kusura bakma...", isim);
+    asama8();
+}
+
+void asama6(){
+    printf("bak sana şindi konuyla ilgili bir fıkra...\n");
+
+    fikra();
+    gul();
+
+    char atasozu[3][100] = {
+    "yani sakla samanı gelir zamanı.",
+    "yani arkadaşlarımızı dikkatli seçmemiz lazım.",
+    "buradan alınacak ders: Göte giren şemsiye açılmaz.."
+    };
+    int rr2 = random(3);
+    printf("\n%s\n", atasozu[rr2]);
+    gul();
+    printf("\n");
+    asama7();
+}
+
+
+
+
+
+

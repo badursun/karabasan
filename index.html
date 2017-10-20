@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Karabasan Beta</title>
+	<meta charset="utf-8" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="karabasan.js"></script>
+</head>
+<body>
+	<div id="console">
+			<h4>Karabasan Web Edition <sup>Extended</sup></h4>
+			<textarea id="echo" readonly></textarea>
+			<input id="input" class="cevap" placeholder="c:/>">
+	</div>
+
+<style>
+body,
+html {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: monospace, "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono";
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+#console{
+	width: 600px;
+	margin: 40px auto 0 auto;
+}
+#echo {
+    font-family: monospace, "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono";
+    border: 0px;
+    font-size: 12px;
+    width: 100%;
+    height: 300px;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-left: 2px solid #fff;
+    margin: 0px 0px -5px 0px;
+    padding: 0px;
+    background-color: #000;
+    color:#fff;
+}
+
+#input {
+    font-family: monospace, "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono";
+    border: 0px;
+    font-size: 12px;
+    width: 100%;
+    height: 25px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-left: 2px solid #fff;
+    margin: 0px;
+    padding: 0px;
+    background-color: #000;
+    color:#fff;
+}
+</style>
+</body>
+</html>
