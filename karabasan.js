@@ -709,6 +709,8 @@ function asama5(){
 					    	}
 					    }
 					});
+					
+					$("#input").val('');
 					return;
 					/*Cevap Alma Bitti*/
     }
@@ -724,7 +726,6 @@ function asama5(){
 					    	if( $("#input").val() == "e" || $("#input").val() == "h"){
 					    		asama5_step6=true;
 					    		secim = $("#input").val();
-					        $("#input").val('');
 					    		echo("> "+ secim);
 						    	if(secim=="e"){
 									  var rand6 = karistir(3);
