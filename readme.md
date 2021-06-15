@@ -17,7 +17,7 @@ Yapılacaklar
 
 Demo/Test
 ----
-http://karabasan.adjans.com.tr
+https://karabasan.herokuapp.com/
 
 Nedir?
 ----
