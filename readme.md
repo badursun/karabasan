@@ -6,6 +6,7 @@ Güncellemeler
 - 19.10.2017 Bazı ufak hatalar giderildi. 6. aşama tamamlandı.
 - 17.10.2017 İlk 5 aşama tamamlandı. Yeni diyaloglar eklendi.
 - 16.10.2017 Ana hatlar kodlandı. İlk 3 aşama tamamlandı.
+- 21.06.2021 Telegram versiyonu hazırlandı (Private Repo) https://t.me/karabasan_aibot
 
 Yapılacaklar
 ----
@@ -13,7 +14,7 @@ Yapılacaklar
 - Diyaloglar geliştirilecek.
 - Performans arttırımı yapılacak.
 - Server-Side kodlama yapılacak
-- Messenger Bot yapılacak.
+- ~~Messenger Bot yapılacak~~
 
 Demo/Test
 ----
