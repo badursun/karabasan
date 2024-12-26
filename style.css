@@ -1,0 +1,454 @@
+:root {
+    --bg-color: #0C0C0C;
+    --text-color: #4AF626;
+    --prompt-color: #4AF626;
+    --cursor-color: #4AF626;
+    --selection-bg: rgba(74, 246, 38, 0.2);
+    --font-family: 'Fira Code', 'Consolas', monospace;
+    --terminal-padding: 1rem;
+    --scrollbar-width: 10px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-color);
+}
+
+body {
+    color: var(--text-color);
+    font-family: var(--font-family);
+    line-height: 1.6;
+    font-size: 14px;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: none;
+}
+
+/* CRT Ekran Efekti */
+body::before {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+}
+
+body::after {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.35s infinite;
+}
+
+#terminal {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--bg-color);
+}
+
+#terminal::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at center,
+        transparent 0%,
+        rgba(0, 0, 0, 0.2) 100%
+    );
+    pointer-events: none;
+}
+
+#terminal-window {
+    height: 100%;
+    width: 100%;
+    padding: var(--terminal-padding);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.terminal-content {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+}
+
+.terminal-content.visible {
+    opacity: 1;
+    display: block;
+}
+
+/* BIOS Boot Sequence */
+.boot-sequence {
+    opacity: 0;
+    animation: bootUp 3s ease-out forwards;
+}
+
+.boot-text {
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    white-space: pre;
+}
+
+.bios-line {
+    opacity: 0;
+    animation: typeWriter 0.1s steps(1) forwards;
+}
+
+.delayed-1 { animation-delay: 0.5s; }
+.delayed-2 { animation-delay: 1s; }
+.delayed-3 { animation-delay: 1.5s; }
+.delayed-4 { animation-delay: 2s; }
+
+#terminal-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #000;
+    z-index: 1000;
+    padding: 20px;
+    border-bottom: 1px solid #0f0;
+}
+
+#terminal-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(74, 246, 38, 0.1) 50%,
+        transparent 100%
+    );
+    animation: scanline 2s linear infinite;
+}
+
+.header-text {
+    color: #0f0;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 0 5px #0f0;
+    font-family: 'Courier New', monospace;
+}
+
+#terminal-content {
+    height: 100vh;
+    width: 100%;
+    background-color: #000;
+    padding: 20px;
+    padding-top: 80px; /* Header yüksekliği + padding */
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #0f0 #000;
+    position: relative;
+}
+
+#output {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.line {
+    width: 100%;
+    padding: 2px 0;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    overflow-x: hidden;
+}
+
+#input-line {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+}
+
+#input-line.hidden {
+    display: none;
+}
+
+#command-input {
+    flex: 1;
+    margin-left: 10px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #0f0;
+    overflow: hidden;
+}
+
+#input-prompt {
+    color: var(--prompt-color);
+    margin-right: 0.5rem;
+    user-select: none;
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 15px;
+    background-color: var(--text-color);
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+}
+
+::selection {
+    background: var(--selection-bg);
+    color: var(--text-color);
+}
+
+/* Terminal Efektleri */
+.glitch {
+    animation: glitch 0.5s linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes glitch {
+    0% { opacity: 0.8; }
+    50% { opacity: 0.9; }
+    100% { opacity: 0.8; }
+}
+
+/* Error mesajları için stil */
+.error-text {
+    color: #FF4040;
+}
+
+/* Success mesajları için stil */
+.success-text {
+    color: #40FF40;
+}
+
+/* Warning mesajları için stil */
+.warning-text {
+    color: #FFFF40;
+}
+
+/* Sistem uyarıları için stil */
+.system-alert {
+    color: #0f0;
+    background-color: #900;
+    padding: 5px;
+    margin: 2px 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.system-alert.flash {
+    background-color: #f00;
+    transition: background-color 0.1s ease;
+}
+
+.system-processing {
+    color: #ffcc00;
+    padding: 4px 8px;
+    margin: 2px 0;
+    animation: processingDots 1.5s infinite;
+}
+
+.loader-line {
+    display: inline-block;
+    color: #ffcc00;
+    position: relative;
+    margin-left: 4px;
+}
+
+.loader-line::after {
+    content: "";
+    animation: loadingDots 1s infinite;
+}
+
+@keyframes loadingDots {
+    0% { content: "⠋"; }
+    8.3% { content: "⠙"; }
+    16.6% { content: "⠹"; }
+    25% { content: "⠸"; }
+    33.3% { content: "⠼"; }
+    41.6% { content: "⠴"; }
+    50% { content: "⠦"; }
+    58.3% { content: "⠧"; }
+    66.6% { content: "⠇"; }
+    75% { content: "⠏"; }
+    83.3% { content: "⠋"; }
+    91.6% { content: "⠙"; }
+    100% { content: "⠋"; }
+}
+
+/* Flash efekti için animasyon */
+@keyframes alertFlash {
+    0% {
+        background-color: rgba(255, 0, 0, 0.8);
+        color: white;
+    }
+    50% {
+        background-color: rgba(255, 0, 0, 0.2);
+        color: #ff3333;
+    }
+    100% {
+        background-color: rgba(255, 0, 0, 0.8);
+        color: white;
+    }
+}
+
+/* İşlem yapıyor efekti için animasyon */
+@keyframes processingDots {
+    0% { content: "■"; }
+    25% { content: "■ ■"; }
+    50% { content: "■ ■ ■"; }
+    75% { content: "■ ■"; }
+    100% { content: "■"; }
+}
+
+.system-processing::after {
+    content: "■";
+    animation: processingDots 1.5s infinite;
+}
+
+/* Mouse cursor stilleri */
+.terminal-busy {
+    cursor: wait !important;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    :root {
+        --terminal-padding: 0.5rem;
+        --scrollbar-width: 5px;
+    }
+
+    body {
+        font-size: 13px;
+    }
+
+    #terminal-header h1 {
+        font-size: 0.8rem;
+    }
+}
+
+/* Animasyonlar */
+@keyframes flicker {
+    0% { opacity: 0.27861; }
+    5% { opacity: 0.34769; }
+    10% { opacity: 0.23604; }
+    15% { opacity: 0.90626; }
+    20% { opacity: 0.18128; }
+    25% { opacity: 0.83891; }
+    30% { opacity: 0.65583; }
+    35% { opacity: 0.67807; }
+    40% { opacity: 0.26559; }
+    45% { opacity: 0.84693; }
+    50% { opacity: 0.96019; }
+    55% { opacity: 0.08594; }
+    60% { opacity: 0.20313; }
+    65% { opacity: 0.71988; }
+    70% { opacity: 0.53455; }
+    75% { opacity: 0.37288; }
+    80% { opacity: 0.71428; }
+    85% { opacity: 0.70419; }
+    90% { opacity: 0.7003; }
+    95% { opacity: 0.36108; }
+    100% { opacity: 0.24387; }
+}
+
+@keyframes textShadow {
+    0% { text-shadow: 0.4389924193300864px 0 1px rgba(0,30,255,0.5), -0.4389924193300864px 0 1px rgba(255,0,80,0.3), 0 0 3px; }
+    5% { text-shadow: 2.7928974010788217px 0 1px rgba(0,30,255,0.5), -2.7928974010788217px 0 1px rgba(255,0,80,0.3), 0 0 3px; }
+    /* ... diğer keyframe'ler ... */
+    100% { text-shadow: 0.4389924193300864px 0 1px rgba(0,30,255,0.5), -0.4389924193300864px 0 1px rgba(255,0,80,0.3), 0 0 3px; }
+}
+
+@keyframes scanline {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes bootUp {
+    0% {
+        opacity: 0;
+        transform: scale(0.98) translateY(-10px);
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes typeWriter {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(2px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Webkit tarayıcılar için scrollbar stili */
+#terminal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+#terminal-content::-webkit-scrollbar-track {
+    background: #000;
+    border: 1px solid #0f0;
+}
+
+#terminal-content::-webkit-scrollbar-thumb {
+    background-color: #0f0;
+    border: 2px solid #000;
+    border-radius: 4px;
+}
+
+#terminal-content::-webkit-scrollbar-thumb:hover {
+    background-color: #0f0;
+    opacity: 0.8;
+}

@@ -1,67 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-	<title>Karabasan Beta</title>
-	<meta charset="utf-8" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script src="karabasan.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Karabasan Terminal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fira-code@6.2.0/distr/fira_code.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<div id="console">
-			<h4>Karabasan Web Edition <sup>Extended</sup></h4>
-			<textarea id="echo" readonly></textarea>
-			<input id="input" class="cevap" placeholder="c:/>">
-	</div>
+    <div id="terminal">
+        <div id="terminal-header">
+            <div class="header-text">KARABASAN.EXE</div>
+        </div>
+        <div id="terminal-content">
+            <div id="output">
+                <div id="terminal-window">
+                    <div id="boot-sequence" class="boot-sequence">
+                        <div class="boot-text bios-line">KARABASAN BIOS v2.0.24</div>
+                        <div class="boot-text bios-line delayed-1">Copyright (C) 2024, Karabasan Corp.</div>
+                        <div class="boot-text bios-line delayed-1">
+Main Processor: Intel(R) Fear(TM) i9 @ 666MHz
+Memory Test: 666MB OK
+                        </div>
+                        <div class="boot-text bios-line delayed-2">
+Initializing Dark Forces................OK
+Loading Nightmare Module...............OK
+Checking Soul Storage.................OK
+                        </div>
+                        <div class="boot-text bios-line delayed-3">
+Press DEL to enter NIGHTMARE
+Press F12 to escape (disabled)
+                        </div>
+                        <div class="boot-text bios-line delayed-4">
+Booting from Dark Dimension...
+Starting Karabasan Terminal...
+                        </div>
+                    </div>
+                </div>
+                <!-- Terminal çıktıları buraya eklenecek -->
+            </div>
+            <div id="input-line" class="hidden">
+                <span id="input-prompt">&gt;</span>
+                <div id="command-input" class="command-input" contenteditable="true" spellcheck="false"></div>
+                <span id="input-cursor" class="typing-cursor"></span>
+            </div>
+        </div>
+    </div>
 
-<style>
-body,
-html {
-    height: 100%;
-    padding: 0px;
-    margin: 0px;
-}
-
-body {
-    background-color: #000;
-    color: #fff;
-    font-family: monospace, "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono";
-}
-textarea:focus, input:focus{
-    outline: none;
-}
-#console{
-	width: 600px;
-	margin: 40px auto 0 auto;
-}
-#echo {
-    font-family: monospace, "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono";
-    border: 0px;
-    font-size: 12px;
-    width: 100%;
-    height: 300px;
-    border-top: 2px solid #fff;
-    border-right: 2px solid #fff;
-    border-left: 2px solid #fff;
-    margin: 0px 0px -5px 0px;
-    padding: 0px;
-    background-color: #000;
-    color:#fff;
-}
-
-#input {
-    font-family: monospace, "Lucida Console", "Lucida Sans Typewriter", monaco, "Bitstream Vera Sans Mono";
-    border: 0px;
-    font-size: 12px;
-    width: 100%;
-    height: 25px;
-    border-bottom: 2px solid #fff;
-    border-right: 2px solid #fff;
-    border-left: 2px solid #fff;
-    margin: 0px;
-    padding: 0px;
-    background-color: #000;
-    color:#fff;
-}
-</style>
+    <audio id="keySound" src="https://www.soundjay.com/mechanical/sounds/typewriter-key-1.mp3" preload="auto"></audio>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="karabasan.js"></script>
 </body>
 </html>
