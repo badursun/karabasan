@@ -7,6 +7,7 @@ Güncellemeler
 - 17.10.2017 İlk 5 aşama tamamlandı. Yeni diyaloglar eklendi.
 - 16.10.2017 Ana hatlar kodlandı. İlk 3 aşama tamamlandı.
 - 21.06.2021 Telegram versiyonu hazırlandı (Private Repo) https://t.me/karabasan_aibot
+- 2024 Kod tabanı, modern JavaScript teknikleri kullanılarak daha iyi sürdürülebilirlik ve yapı için yeniden düzenlendi.
 
 Yapılacaklar
 ----
@@ -19,6 +20,19 @@ Yapılacaklar
 Demo/Test
 ----
 https://karabasan.herokuapp.com/
+
+Kullanılabilir Komutlar
+----
+Temel Komutlar:
+- `yardim`: Yardım mesajını gösterir.
+- `temizle`: Terminal ekranını temizler.
+- `hakkinda`: Program hakkında bilgi gösterir.
+- `cik`: Terminalden çıkış yapar (ya da yapmaya çalışır!).
+
+Eğlence Komutları:
+- `sayitahmin`: Basit bir sayı tahmin oyunu başlatır.
+- `zar`: Rastgele bir zar atar.
+- `sifre`: Rastgele bir şifre üretir.
 
 Nedir?
 ----
